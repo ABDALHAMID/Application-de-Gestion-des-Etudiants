@@ -1,0 +1,40 @@
+<form>
+	<div class="mb-3 row">
+		<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+		<div class="col-xs-3 col-sm-auto">
+			<input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+		</div>
+	</div>
+</form>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">nom</th>
+			<th scope="col">prenom</th>
+			<th scope="col">email</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (student of studentInfo; track student.id; let i = $index) {
+			<tr>
+				<th scope="row">{{ i + 1 }}</th>
+				<td>
+					<ngb-highlight [result]="student.nom" [term]="filter.value" />
+				</td>
+        <td>
+					<ngb-highlight [result]="student.prenom" [term]="filter.value" />
+				</td>
+        <td>
+					<ngb-highlight [result]="student.email" [term]="filter.value" />
+				</td>
+
+			</tr>
+		} @empty {
+			<tr>
+				<td colspan="4" style="text-align: center">il a pas des etudent </td>
+			</tr>
+		}
+	</tbody>
+</table>
