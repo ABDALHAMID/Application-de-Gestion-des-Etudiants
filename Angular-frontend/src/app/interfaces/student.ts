@@ -6,4 +6,5 @@ export interface Student{
   tel: string;
   date_naissance: string | null;
   filiere: string;
+  matricule: string;
 }

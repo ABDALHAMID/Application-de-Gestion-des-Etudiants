@@ -1,27 +1,35 @@
-import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { DecimalPipe, AsyncPipe } from '@angular/common';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbHighlight, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../interfaces/student';
-import { Init } from 'v8';
-import { StudentServiceService } from '../student-service.service';
 import { StudentService } from '../services/student.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-students-list',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgbHighlight],
+  imports: [FormsModule, ReactiveFormsModule, NgbHighlight, AsyncPipe],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
-  providers: [],
+  providers: [DecimalPipe],
 })
 export class StudentsListComponent implements OnInit {
 
   students: Student[] = [];
-  filter = new FormControl('', { nonNullable: true });
+  filteredStudents: Observable<Student[]>;
+  filter: FormControl = new FormControl('', { nonNullable: true });
 
-  constructor(private studentService: StudentService, private router: Router){}
+
+
+  constructor(private studentService: StudentService, private router: Router){
+    this.filteredStudents = this.filter.valueChanges.pipe(
+			startWith(''),
+			map((text) => this.search(text)),
+		);
+	}
 
 
   ngOnInit(): void {
@@ -29,6 +37,18 @@ export class StudentsListComponent implements OnInit {
       this.students = data;
       console.log(data)
     })
+  }
+
+
+  search(text: string): Student[] {
+    return this.students.filter((student) => {
+      const term = text.toLowerCase();
+      return (
+        student.nom.toLowerCase().includes(term) ||
+        student.prenom.toLowerCase().includes(term) ||
+        student.matricule.toLowerCase().includes(term)
+      );
+    });
   }
 
   onEdit(student: Student) {
@@ -40,11 +60,19 @@ export class StudentsListComponent implements OnInit {
       if(typeof(id)==='number')
         this.studentService.deleteStudent(id).subscribe(() => {
           this.students = this.students.filter((student) => student.id !== id);
+          this.filteredStudents = this.filter.valueChanges.pipe(
+            startWith(''),
+            map((text) => this.search(text)),
+          );
         })
       else
       console.error("no id for this etudent");
     }
   }
 
+
+  onSearchChange(){
+
+  }
 
 }

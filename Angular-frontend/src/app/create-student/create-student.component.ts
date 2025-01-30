@@ -18,6 +18,7 @@ export class CreateStudentComponent {
     nom: '',
     prenom: '',
     email: '',
+    matricule: '',
     tel: '',
     date_naissance: '',
     filiere: '',
