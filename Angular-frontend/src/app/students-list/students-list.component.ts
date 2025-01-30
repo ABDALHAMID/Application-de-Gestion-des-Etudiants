@@ -5,6 +5,8 @@ import { NgbHighlight, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../interfaces/student';
 import { Init } from 'v8';
 import { StudentServiceService } from '../student-service.service';
+import { StudentService } from '../services/student.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students-list',
@@ -16,16 +18,33 @@ import { StudentServiceService } from '../student-service.service';
 })
 export class StudentsListComponent implements OnInit {
 
-  studentInfo: Student[] = [];
+  students: Student[] = [];
   filter = new FormControl('', { nonNullable: true });
 
-  constructor(private studentService: StudentServiceService){}
+  constructor(private studentService: StudentService, private router: Router){}
 
 
   ngOnInit(): void {
-    this.studentInfo = this.studentService.getAllStudents();
+    this.studentService.getAllStudents().subscribe((data)=>{
+      this.students = data;
+      console.log(data)
+    })
   }
 
+  onEdit(student: Student) {
+    this.router.navigate(['/edit-student', student.id]);
+  }
+
+  onDelete(id?: number) {
+    if (confirm('Are you sure you want to delete this student?')) {
+      if(typeof(id)==='number')
+        this.studentService.deleteStudent(id).subscribe(() => {
+          this.students = this.students.filter((student) => student.id !== id);
+        })
+      else
+      console.error("no id for this etudent");
+    }
+  }
 
 
 }

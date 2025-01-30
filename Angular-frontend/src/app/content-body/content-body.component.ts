@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-content-body',
   standalone: true,
-  imports: [StudentsListComponent, SideBarComponent, RouterOutlet],
+  imports: [SideBarComponent, RouterOutlet],
   templateUrl: './content-body.component.html',
   styleUrl: './content-body.component.scss',
 })
