@@ -3,6 +3,7 @@ import { Student } from '../interfaces/student';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentService } from '../services/student.service';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-create-student',
@@ -17,11 +18,10 @@ export class CreateStudentComponent {
     nom: '',
     prenom: '',
     email: '',
-    tel: null,
+    tel: '',
     date_naissance: '',
-    filiere: ''
+    filiere: '',
   };
-
   constructor(private studentService: StudentService, private router: Router){
 
   }
@@ -30,7 +30,8 @@ export class CreateStudentComponent {
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.studentService.createStudent(this.student).subscribe(() => {
-        this.router.navigate(['/students']); // Redirect to the student list
+        console.log("dslafjl")
+        this.router.navigate(['/home']); // Redirect to the student list
       });
     }
   }

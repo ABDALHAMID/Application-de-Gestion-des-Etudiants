@@ -1,1 +1,37 @@
-<p>edit-student works!</p>
+<!-- src/app/components/student-add/student-add.component.html -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Add New Student</h2>
+  <form (ngSubmit)="onSubmit(studentForm)" #studentForm="ngForm" class="needs-validation" novalidate>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" [(ngModel)]="student.nom" name="name" required class="form-control" />
+      <div class="invalid-feedback">Name is required</div>
+    </div>
+    <div class="mb-3">
+      <label for="prenom" class="form-label">Prenom</label>
+      <input type="text" id="prenom" [(ngModel)]="student.prenom" name="prenom" required class="form-control" />
+      <div class="invalid-feedback">Prenom is required</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" [(ngModel)]="student.email" name="email" required class="form-control" />
+      <div class="invalid-feedback">Valid email is required</div>
+    </div>
+    <div class="mb-3">
+      <label for="tel" class="form-label">Tel</label>
+      <input type="text" id="tel" [(ngModel)]="student.tel" name="tel" required class="form-control" />
+      <div class="invalid-feedback">Tel is required</div>
+    </div>
+    <div class="mb-3">
+      <label for="date_naissance" class="form-label">Date of Birth</label>
+      <input type="date" id="date_naissance" [(ngModel)]="student.date_naissance" name="date_naissance" required class="form-control" />
+      <div class="invalid-feedback">Date of Birth is required</div>
+    </div>
+    <div class="mb-3">
+      <label for="filiere" class="form-label">Filiere</label>
+      <input type="text" id="filiere" [(ngModel)]="student.filiere" name="filiere" required class="form-control" />
+      <div class="invalid-feedback">Filiere is required</div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Add Student</button>
+  </form>
+</div>

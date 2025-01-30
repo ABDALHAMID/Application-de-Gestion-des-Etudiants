@@ -6,7 +6,7 @@ import { Student } from '../interfaces/student';
 import { Init } from 'v8';
 import { StudentServiceService } from '../student-service.service';
 import { StudentService } from '../services/student.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-students-list',
@@ -32,7 +32,7 @@ export class StudentsListComponent implements OnInit {
   }
 
   onEdit(student: Student) {
-    this.router.navigate(['/edit-student', student.id]);
+    this.router.navigate(['/editS', student.id]);
   }
 
   onDelete(id?: number) {

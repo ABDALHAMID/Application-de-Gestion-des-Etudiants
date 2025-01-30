@@ -3,7 +3,7 @@ export interface Student{
   nom: string;
   prenom: string;
   email: string;
-  tel: number | null;
-  date_naissance: Date | string;
+  tel: string;
+  date_naissance: string | null;
   filiere: string;
 }
