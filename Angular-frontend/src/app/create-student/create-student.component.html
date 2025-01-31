@@ -1,42 +1,203 @@
-<!-- src/app/components/student-add/student-add.component.html -->
 <div class="container mt-5">
-  <h2 class="text-center mb-4">Add New Student</h2>
-  <form (ngSubmit)="onSubmit(studentForm)" #studentForm="ngForm" class="needs-validation" novalidate>
+  <h2 class="text-center mb-4">Ajouter un nouvel étudiant</h2>
+  <form
+    (ngSubmit)="onSubmit(studentForm)"
+    #studentForm="ngForm"
+    class="needs-validation p-4 shadow rounded bg-light"
+    novalidate
+  >
+    <!-- Nom -->
     <div class="mb-3">
-      <label for="name" class="form-label">Name</label>
-      <input type="text" id="name" [(ngModel)]="student.nom" name="name" required class="form-control" />
-      <div class="invalid-feedback">Name is required</div>
+      <label for="nom" class="form-label fw-bold">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        [(ngModel)]="student.nom"
+        name="nom"
+        required
+        minlength="4"
+        class="form-control"
+        #nom="ngModel"
+        [ngClass]="{ 'is-invalid': nom.invalid && (nom.dirty || nom.touched) }"
+      />
+      <div
+        *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+        <div *ngIf="nom.errors?.['minlength']">
+          Le nom doit comporter au moins 4 caractères.
+        </div>
+      </div>
     </div>
+
+    <!-- Prénom -->
     <div class="mb-3">
-      <label for="prenom" class="form-label">Prenom</label>
-      <input type="text" id="prenom" [(ngModel)]="student.prenom" name="prenom" required class="form-control" />
-      <div class="invalid-feedback">Prenom is required</div>
+      <label for="prenom" class="form-label fw-bold">Prénom</label>
+      <input
+        type="text"
+        id="prenom"
+        [(ngModel)]="student.prenom"
+        name="prenom"
+        required
+        class="form-control"
+        #prenom="ngModel"
+        [ngClass]="{
+          'is-invalid': prenom.invalid && (prenom.dirty || prenom.touched)
+        }"
+      />
+      <div
+        *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="prenom.errors?.['required']">Le prénom est requis.</div>
+      </div>
     </div>
+
+    <!-- Email -->
     <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" [(ngModel)]="student.email" name="email" required class="form-control" />
-      <div class="invalid-feedback">Valid email is required</div>
+      <label for="email" class="form-label fw-bold">Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="student.email"
+        name="email"
+        required
+        class="form-control"
+        #email="ngModel"
+        [ngClass]="{
+          'is-invalid': email.invalid && (email.dirty || email.touched)
+        }"
+      />
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="email.errors?.['required']">L'email est requis.</div>
+        <div *ngIf="email.errors?.['email']">
+          L'email doit être une adresse valide.
+        </div>
+      </div>
     </div>
+
+    <!-- Matricule -->
     <div class="mb-3">
-      <label for="matricule" class="form-label">Email</label>
-      <input type="text" id="matricule" [(ngModel)]="student.matricule" name="matricule" required class="form-control" />
-      <div class="invalid-feedback">Valid email is required</div>
+      <label for="matricule" class="form-label fw-bold">Matricule</label>
+      <input
+        type="text"
+        id="matricule"
+        [(ngModel)]="student.matricule"
+        name="matricule"
+        required
+        minlength="6"
+        pattern="[A-Za-z0-9]{6,}"
+        class="form-control"
+        #matricule="ngModel"
+        [ngClass]="{
+          'is-invalid':
+            matricule.invalid && (matricule.dirty || matricule.touched)
+        }"
+      />
+      <div
+        *ngIf="matricule.invalid && (matricule.dirty || matricule.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="matricule.errors?.['required']">Le matricule est requis.</div>
+        <div *ngIf="matricule.errors?.['pattern']">
+          Le matricule doit contenir au moins 6 caractères alphanumériques.
+        </div>
+      </div>
     </div>
+
+    <!-- Téléphone -->
     <div class="mb-3">
-      <label for="tel" class="form-label">Tel</label>
-      <input type="text" id="tel" [(ngModel)]="student.tel" name="tel" required class="form-control" />
-      <div class="invalid-feedback">Tel is required</div>
+      <label for="tel" class="form-label fw-bold">Téléphone</label>
+      <input
+        type="text"
+        id="tel"
+        [(ngModel)]="student.tel"
+        name="tel"
+        required
+        pattern="0[0-9]{9}"
+        maxlength="10"
+        minlength="10"
+        class="form-control"
+        #tel="ngModel"
+        [ngClass]="{ 'is-invalid': tel.invalid && (tel.dirty || tel.touched) }"
+      />
+      <div
+        *ngIf="tel.invalid && (tel.dirty || tel.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="tel.errors?.['required']">Le téléphone est requis.</div>
+        <div *ngIf="tel.errors?.['pattern']">
+          Le téléphone doit commencer par 0 et avoir exactement 10 chiffres.
+        </div>
+      </div>
     </div>
+
+    <!-- Date de naissance -->
     <div class="mb-3">
-      <label for="date_naissance" class="form-label">Date of Birth</label>
-      <input type="date" id="date_naissance" [(ngModel)]="student.date_naissance" name="date_naissance" required class="form-control" />
-      <div class="invalid-feedback">Date of Birth is required</div>
+      <label for="date_naissance" class="form-label fw-bold"
+        >Date de naissance</label
+      >
+      <input
+        type="date"
+        id="date_naissance"
+        [(ngModel)]="student.date_naissance"
+        name="date_naissance"
+        required
+        class="form-control"
+        #date_naissance="ngModel"
+        [ngClass]="{
+          'is-invalid':
+            date_naissance.invalid &&
+            (date_naissance.dirty || date_naissance.touched)
+        }"
+      />
+      <div
+        *ngIf="
+          date_naissance.invalid &&
+          (date_naissance.dirty || date_naissance.touched)
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="date_naissance.errors?.['required']">
+          La date de naissance est requise.
+        </div>
+      </div>
     </div>
+
+    <!-- Filière -->
     <div class="mb-3">
-      <label for="filiere" class="form-label">Filiere</label>
-      <input type="text" id="filiere" [(ngModel)]="student.filiere" name="filiere" required class="form-control" />
-      <div class="invalid-feedback">Filiere is required</div>
+      <label for="filiere" class="form-label fw-bold">Filière</label>
+      <input
+        type="text"
+        id="filiere"
+        [(ngModel)]="student.filiere"
+        name="filiere"
+        required
+        class="form-control"
+        #filiere="ngModel"
+        [ngClass]="{
+          'is-invalid': filiere.invalid && (filiere.dirty || filiere.touched)
+        }"
+      />
+      <div
+        *ngIf="filiere.invalid && (filiere.dirty || filiere.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="filiere.errors?.['required']">La filière est requise.</div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary w-100">Add Student</button>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="studentForm.invalid"
+    >
+      Ajouter l'étudiant
+    </button>
   </form>
 </div>

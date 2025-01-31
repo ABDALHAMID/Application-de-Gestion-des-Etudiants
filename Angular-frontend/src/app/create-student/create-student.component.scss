@@ -1,0 +1,13 @@
+.invalid-feedback {
+  color: red;
+  display: none;
+}
+
+.invalid-feedback.ng-invalid.ng-touched,
+.invalid-feedback.ng-invalid.ng-dirty {
+  display: block;
+}
+
+.alert {
+  color: red;
+}

@@ -35,11 +35,13 @@ router.get('/:id', (req, res) => {
 
 // Create a new student
 router.post('/', (req, res) => {
+  console.log(req.body)
   const student = new Student(
     null,
     req.body.nom,
     req.body.prenom,
     req.body.email,
+    req.body.matricule,
     req.body.tel,
     req.body.date_naissance,
     req.body.filiere
@@ -62,6 +64,7 @@ router.put('/:id', (req, res) => {
     nom: req.body.nom,
     prenom: req.body.prenom,
     email: req.body.email,
+    matricule: req.body.matricule,
     tel: req.body.tel,
     date_naissance: req.body.date_naissance,
     filiere: req.body.filiere,
