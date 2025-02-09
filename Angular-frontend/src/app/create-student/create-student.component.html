@@ -15,7 +15,6 @@
         [(ngModel)]="student.nom"
         name="nom"
         required
-        minlength="4"
         class="form-control"
         #nom="ngModel"
         [ngClass]="{ 'is-invalid': nom.invalid && (nom.dirty || nom.touched) }"
@@ -25,9 +24,6 @@
         class="invalid-feedback"
       >
         <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
-        <div *ngIf="nom.errors?.['minlength']">
-          Le nom doit comporter au moins 4 caractères.
-        </div>
       </div>
     </div>
 
@@ -64,6 +60,7 @@
         name="email"
         required
         class="form-control"
+        email
         #email="ngModel"
         [ngClass]="{
           'is-invalid': email.invalid && (email.dirty || email.touched)
@@ -90,7 +87,7 @@
         name="matricule"
         required
         minlength="6"
-        pattern="[A-Za-z0-9]{6,}"
+        pattern="etu-\d{2,}$"
         class="form-control"
         #matricule="ngModel"
         [ngClass]="{
@@ -103,8 +100,11 @@
         class="invalid-feedback"
       >
         <div *ngIf="matricule.errors?.['required']">Le matricule est requis.</div>
-        <div *ngIf="matricule.errors?.['pattern']">
+        <div *ngIf="matricule.errors?.['minlength']">
           Le matricule doit contenir au moins 6 caractères alphanumériques.
+        </div>
+        <div *ngIf="matricule.errors?.['pattern']">
+          le Matricule doit sous form de "etu-XXXX" (X et un nombre)
         </div>
       </div>
     </div>
@@ -171,18 +171,22 @@
     <!-- Filière -->
     <div class="mb-3">
       <label for="filiere" class="form-label fw-bold">Filière</label>
-      <input
-        type="text"
+
+      <select
         id="filiere"
         [(ngModel)]="student.filiere"
         name="filiere"
         required
-        class="form-control"
+        class="form-select"
         #filiere="ngModel"
         [ngClass]="{
           'is-invalid': filiere.invalid && (filiere.dirty || filiere.touched)
         }"
-      />
+        >
+        <option *ngFor="let filiere of filieres" [value]="filiere">
+          {{ filiere }}
+        </option>
+      </select>
       <div
         *ngIf="filiere.invalid && (filiere.dirty || filiere.touched)"
         class="invalid-feedback"

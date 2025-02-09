@@ -16,10 +16,9 @@ import { map, startWith } from 'rxjs/operators';
   styleUrl: './students-list.component.scss',
   providers: [DecimalPipe],
 })
-export class StudentsListComponent implements OnInit, OnDestroy {
+export class StudentsListComponent implements OnInit {
 
   students: Student[] = [];
-  private routerSub: any;
   filteredStudents: Observable<Student[]>;
 
   filter: FormControl = new FormControl('', { nonNullable: true });
@@ -27,7 +26,7 @@ export class StudentsListComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private studentService: StudentService, private router: Router, private route: ActivatedRoute){
+  constructor(private studentService: StudentService, private router: Router){
     this.filteredStudents = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => this.search(text)),
@@ -37,11 +36,7 @@ export class StudentsListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log("dafsdasd;l shit")
-    // this.routerSub = this.route.params.subscribe(() => {
       this.loadStudents();
-
-    // })
   }
 
   loadStudents(){
@@ -49,7 +44,6 @@ export class StudentsListComponent implements OnInit, OnDestroy {
     this.studentService.getAllStudents().subscribe((data)=>{
       this.students = data;
       this.filter.setValue('');
-      console.log(data)
     })
   }
 
@@ -86,13 +80,6 @@ export class StudentsListComponent implements OnInit, OnDestroy {
 
 
   onSearchChange(){
-
-  }
-
-
-  ngOnDestroy(): void {
-    if(this.routerSub)
-      this.routerSub.unsubscribe();
 
   }
 
