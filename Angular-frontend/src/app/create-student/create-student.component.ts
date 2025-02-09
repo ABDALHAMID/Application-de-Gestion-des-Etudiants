@@ -10,7 +10,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 @Component({
   selector: 'app-create-student',
   standalone: true,
-  imports: [FormsModule, AsyncPipe, CommonModule ],
+  imports: [FormsModule, CommonModule ],
   templateUrl: './create-student.component.html',
   styleUrls: ['./create-student.component.scss']
 })

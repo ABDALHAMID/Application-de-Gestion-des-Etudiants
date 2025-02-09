@@ -1,10 +1,10 @@
 import { DecimalPipe, AsyncPipe } from '@angular/common';
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnDestroy, OnInit, PipeTransform } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../interfaces/student';
 import { StudentService } from '../services/student.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -16,15 +16,18 @@ import { map, startWith } from 'rxjs/operators';
   styleUrl: './students-list.component.scss',
   providers: [DecimalPipe],
 })
-export class StudentsListComponent implements OnInit {
+export class StudentsListComponent implements OnInit, OnDestroy {
 
   students: Student[] = [];
+  private routerSub: any;
   filteredStudents: Observable<Student[]>;
+
   filter: FormControl = new FormControl('', { nonNullable: true });
 
 
 
-  constructor(private studentService: StudentService, private router: Router){
+
+  constructor(private studentService: StudentService, private router: Router, private route: ActivatedRoute){
     this.filteredStudents = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => this.search(text)),
@@ -32,9 +35,20 @@ export class StudentsListComponent implements OnInit {
 	}
 
 
+
   ngOnInit(): void {
+    console.log("dafsdasd;l shit")
+    // this.routerSub = this.route.params.subscribe(() => {
+      this.loadStudents();
+
+    // })
+  }
+
+  loadStudents(){
+    console.log("allo")
     this.studentService.getAllStudents().subscribe((data)=>{
       this.students = data;
+      this.filter.setValue('');
       console.log(data)
     })
   }
@@ -72,6 +86,13 @@ export class StudentsListComponent implements OnInit {
 
 
   onSearchChange(){
+
+  }
+
+
+  ngOnDestroy(): void {
+    if(this.routerSub)
+      this.routerSub.unsubscribe();
 
   }
 

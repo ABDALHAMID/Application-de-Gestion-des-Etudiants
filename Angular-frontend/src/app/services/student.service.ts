@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  private backendApi = "http://localhost:3000";
+  private backendApi = "http://192.168.10.14:3000";
   private subApi = "students"
   private apiUrl =  `${this.backendApi}/${this.subApi}`;
 
@@ -16,6 +16,7 @@ export class StudentService {
   constructor(private httpClient: HttpClient) { }
 
   getAllStudents(): Observable<Student[]>{
+    console.log("try to get")
     return this.httpClient.get<Student[]>(this.apiUrl)
   }
 

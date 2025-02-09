@@ -8,6 +8,7 @@ const studentTable = 'etudiant'
 
 // Get all students
 router.get('/', (req, res) => {
+  console.log("get student list");
   db.query(`SELECT * FROM ${studentTable}`, (err, results) => {
     if (err) {
       console.error('Error fetching students:', err);
