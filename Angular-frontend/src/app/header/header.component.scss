@@ -1,27 +1,185 @@
+.navbar-brand{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
 img{
+  top: 0;
   display: inline-block;
+  height: 100%;
 }
 h1{
   display: inline-block;
-  color: #FBF5DD;
+  margin-left: 20px;
+  font-family: "Montserrat", serif;
 }
+
+
+
 .header{
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100px;
+  height: 70px;
   color: #FBF5DD !important;
-  background-color: #16404D;
+  background-color: #10375C;
   border-radius: 0px;
-  border: 1px solid #DDA853;
-}
-.logo-header{
-  display: flex;
-  margin: 15spx 50px;
+  border: 1px solid #F3C623;
+  z-index: 999;
+  padding: 2px 50px;
+  transition: .5s ease;
+
+
+
+  .animated-button{
+    box-shadow: 0 0 0 2px #F3C623;
+  }
+  nav .navbar-nav li a{
+    color: #F3C623 !important;
+    font-size: 1.5rem;
+    margin-left: 20px;
+  }
+  .title{
+    font-size: 4rem;
+    color: #F3C623;
+  }
 }
 
-nav .navbar-nav li a{
+
+
+
+.scolledHeader{
+  position: sticky;
+  top: 20px;
+  width: 40%;
+  height: 40px;
   color: #FBF5DD !important;
+  background-color: #10375C55;
+  border-radius: 20px;
+  border: 1px solid #fff;
+  box-shadow:
+    inset 0 0 50px #fff,      /* inner white */
+    inset 20px 0 30px #EB831730,   /* inner left magenta short */
+    inset -20px 0 30px #10375C30,  /* inner right cyan short */
+    inset 20px 0 300px #EB831730,  /* inner left magenta broad */
+    inset -20px 0 300px #10375C30, /* inner right cyan broad */
+    0 0 50px #fff,            /* outer white */
+    -10px 0 30px #F3C623,        /* outer left magenta */
+    10px 0 30px #EB8317;         /* outer right cyan */
+  z-index: 999;
+  padding: 5px 50px;
+  backdrop-filter: blur(5px);
+  transition: .5s ease;
+  margin-top: 20px;
+  margin-left: 30%;
+
+  .animated-button{
+    box-shadow: 0 0 0 0px #F3C623;
+  }
+  .animated-button:hover{
+    box-shadow: 0 0 0 1px #10375C;
+  }
+  nav .navbar-nav li a{
+    color: #10375C !important;
+    font-size: 1rem;
+    margin-left: 20px;
   }
 
+  .title{
+    font-size: 2.5rem;
+    color: #10375C;
+  }
+}
 
+
+
+
+
+
+
+//ajouter button
+.animated-button {
+  text-decoration: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: .2rem 2rem;
+  border: 4px solid;
+  border-color: transparent;
+  background-color: inherit;
+  border-radius: 100px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 1.5rem;
+  fill: white;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #fff5;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: black;
+  border-radius: 5px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #212121;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px white;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}

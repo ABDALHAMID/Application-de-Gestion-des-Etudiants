@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  private backendApi = "http://192.168.10.14:3000";
+  private backendApi = "http://192.168.10.13:3000";
   private subApi = "students"
   private apiUrl =  `${this.backendApi}/${this.subApi}`;
 

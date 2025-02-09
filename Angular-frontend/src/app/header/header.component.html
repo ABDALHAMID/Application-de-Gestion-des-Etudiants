@@ -1,10 +1,10 @@
-<div class="header">
-  <div class="nav w-100">
-    <nav class="navbar navbar-expand w-100">
-      <div class="container-fluid">
-        <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >
-          <img ngSrc="assets/images/logo.png"  width="70" height="70">
-          <h1>GESTION DES ETUDIANTS</h1>
+<div [className]="headerClass? 'header': 'scolledHeader'">
+  <div class="nav w-100 h-100 m-0">
+    <nav class="navbar navbar-expand w-100 h-100 p-0 m-0">
+      <div class="container-fluid h-100 p-0 m-0">
+        <a class="navbar-brand h-100 p-0 m-0" [routerLink]="['/home']" routerLinkActive="router-link-active" >
+          <img [className]="'logo-header'" [src]="'assets/images/logo.png'">
+          <h1 [id]="title" class="title">{{title}}</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,12 @@
               <a class="nav-link active" [routerLink]="['/home']" routerLinkActive="router-link-active">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/createStudent']" routerLinkActive="router-link-active">ajouter etudiant</a>
+              <a class="animated-button" [routerLink]="['/createStudent']" routerLinkActive="router-link-active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="arr-2"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg>
+                  <span class="text">ajouter etudiant</span>
+                  <span class="circle"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="arr-1"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg>
+                </a>
             </li>
           </ul>
         </div>
