@@ -6,6 +6,8 @@ import { StudentService } from '../services/student.service';
 import { Router } from '@angular/router';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Filiere } from '../interfaces/filiere.enum';
+import { AlertServiceService } from '../services/alert-service.service';
+import { error } from 'console';
 
 
 @Component({
@@ -31,7 +33,10 @@ export class CreateStudentComponent implements OnInit{
   filieres: Filiere[] = [];
 
 
-  constructor(private studentService: StudentService, private router: Router) {}
+  constructor(private studentService: StudentService,
+    private router: Router,
+    private alert: AlertServiceService,
+  ) {}
 
 
   ngOnInit(): void {
@@ -41,9 +46,17 @@ export class CreateStudentComponent implements OnInit{
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.studentService.createStudent(this.student).subscribe(() => {
-        this.router.navigate(['/home']); // Redirect to the student list
-      });
-    }
+      this.studentService.updateStudent(this.student).subscribe({
+        next:()=>{
+          this.router.navigate(['/home']),
+          this.alert.changeMessage('etudent ajouter', 'success')
+        },
+        error:(err)=>{
+          console.log(err)
+          this.alert.changeMessage(err.error.error.sqlMessage, 'error')
+        }
+      })
+
+      }
   }
 }

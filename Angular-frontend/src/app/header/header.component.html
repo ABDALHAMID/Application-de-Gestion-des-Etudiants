@@ -1,4 +1,10 @@
 <div [className]="headerClass? 'header': 'scolledHeader'">
+  <div class="headerAlert">
+    <div [className]="alertStyle">
+
+      <p class="alertMessage">{{alertMessage}}</p>
+    </div>
+  </div>
   <div class="nav w-100 h-100 m-0">
     <nav class="navbar navbar-expand w-100 h-100 p-0 m-0">
       <div class="container-fluid h-100 p-0 m-0">

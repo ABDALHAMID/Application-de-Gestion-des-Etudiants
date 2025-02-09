@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AlertServiceService } from '../services/alert-service.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,25 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  alertMessage : string = '';
+  alertStyle: string = 'none';
+
+  constructor(private alert: AlertServiceService){}
+  ngOnInit(): void {
+    this.alert.currentAlert.subscribe((data) => {
+      this.alertMessage = data.message;
+      this.alertStyle = data.style;
+
+      setTimeout(() => {
+        this.alertMessage = '';
+        this.alertStyle = 'none';
+      }, 3000);
+    });
+  }
+
+
   title= 'GESTION DES ETUDIANTS';
 
   headerClass: boolean = true;

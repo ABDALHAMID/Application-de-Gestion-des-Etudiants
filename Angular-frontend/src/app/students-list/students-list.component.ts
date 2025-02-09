@@ -7,6 +7,7 @@ import { StudentService } from '../services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AlertServiceService } from '../services/alert-service.service';
 
 @Component({
   selector: 'app-students-list',
@@ -26,7 +27,7 @@ export class StudentsListComponent implements OnInit {
 
 
 
-  constructor(private studentService: StudentService, private router: Router){
+  constructor(private studentService: StudentService, private router: Router, private alert: AlertServiceService){
     this.filteredStudents = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => this.search(text)),
@@ -66,21 +67,20 @@ export class StudentsListComponent implements OnInit {
   onDelete(id?: number) {
     if (confirm('Are you sure you want to delete this student?')) {
       if(typeof(id)==='number')
-        this.studentService.deleteStudent(id).subscribe(() => {
-          this.students = this.students.filter((student) => student.id !== id);
-          this.filteredStudents = this.filter.valueChanges.pipe(
-            startWith(''),
-            map((text) => this.search(text)),
-          );
-        })
-      else
-      console.error("no id for this etudent");
+        this.studentService.deleteStudent(id).subscribe({
+            next:()=>{
+              this.alert.changeMessage('etudent suprimuer', 'success');
+              this.students = this.students.filter((student) => student.id !== id);
+              this.filteredStudents = this.filter.valueChanges.pipe(
+                startWith(''),
+                map((text) => this.search(text)),)
+            },error:(err)=>{
+              console.log(err)
+              this.alert.changeMessage(err.error.error.sqlMessage, 'error')
+            }
+          })
     }
   }
 
-
-  onSearchChange(){
-
-  }
 
 }
