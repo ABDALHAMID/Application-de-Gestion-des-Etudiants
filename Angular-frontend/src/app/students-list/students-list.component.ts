@@ -1,18 +1,20 @@
-import { DecimalPipe, AsyncPipe } from '@angular/common';
+import { DecimalPipe, AsyncPipe, SlicePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, PipeTransform } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../interfaces/student';
 import { StudentService } from '../services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AlertServiceService } from '../services/alert-service.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-students-list',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgbHighlight, AsyncPipe],
+  imports: [FormsModule, ReactiveFormsModule, NgbHighlight, AsyncPipe, NgbPaginationModule, SlicePipe],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
   providers: [DecimalPipe],
@@ -23,6 +25,8 @@ export class StudentsListComponent implements OnInit {
   filteredStudents: Observable<Student[]>;
 
   filter: FormControl = new FormControl('', { nonNullable: true });
+  currentPage = 1;
+  itemsPerPage = 10;
 
 
 
@@ -38,6 +42,7 @@ export class StudentsListComponent implements OnInit {
 
   ngOnInit(): void {
       this.loadStudents();
+
   }
 
   loadStudents(){
@@ -80,6 +85,10 @@ export class StudentsListComponent implements OnInit {
             }
           })
     }
+  }
+
+  onPageChange() {
+    console.log(this.currentPage)
   }
 
 

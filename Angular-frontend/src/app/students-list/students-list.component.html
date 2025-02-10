@@ -31,9 +31,9 @@
     </tr>
   </thead>
   <tbody>
-    @for (student of filteredStudents | async; track student.nom; let i = $index) {
+    @for (student of (filteredStudents | async)| slice: (currentPage-1) * itemsPerPage : currentPage * itemsPerPage; track student.nom; let i = $index) {
       <tr>
-        <th scope="row">{{ i + 1 }}</th>
+        <th scope="row">{{ i + 1 + (currentPage - 1) * itemsPerPage }}</th>
         <td>
           <ngb-highlight [result]="student.nom" [term]="filter.value" />
         </td>
@@ -89,3 +89,15 @@
     }
   </tbody>
 </table>
+<div class="d-flex justify-content-center mt-3">
+  <ngb-pagination
+    [collectionSize]="(filteredStudents | async)?.length || 0"
+    [(page)]="currentPage"
+    [pageSize]="itemsPerPage"
+    [maxSize]="5"
+    [rotate]="true"
+    [boundaryLinks]="true"
+    (pageChange)="onPageChange()"
+  >
+  </ngb-pagination>
+</div>
