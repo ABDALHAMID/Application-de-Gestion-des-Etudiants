@@ -1,7 +1,7 @@
 import { DecimalPipe, AsyncPipe, SlicePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnDestroy, OnInit, PipeTransform, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
+import { NgbHighlight, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../interfaces/student';
 import { StudentService } from '../services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,11 +10,12 @@ import { map, startWith } from 'rxjs/operators';
 import { AlertServiceService } from '../services/alert-service.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
+import { StudentInfoComponent } from "../student-info/student-info.component";
 
 @Component({
   selector: 'app-students-list',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgbHighlight, AsyncPipe, NgbPaginationModule, SlicePipe],
+  imports: [FormsModule, ReactiveFormsModule, NgbHighlight, AsyncPipe, NgbPaginationModule, SlicePipe, StudentInfoComponent],
   templateUrl: './students-list.component.html',
   styleUrl: './students-list.component.scss',
   providers: [DecimalPipe],
@@ -23,15 +24,20 @@ export class StudentsListComponent implements OnInit {
 
   students: Student[] = [];
   filteredStudents: Observable<Student[]>;
-
+  selectedStudent: Student | null = null;
   filter: FormControl = new FormControl('', { nonNullable: true });
   currentPage = 1;
   itemsPerPage = 10;
+  eppL = [
+    5, 10, 20, 50
+  ]
+  @ViewChild('studentModal') modal!: StudentInfoComponent;
 
-
-
-
-  constructor(private studentService: StudentService, private router: Router, private alert: AlertServiceService){
+  constructor(
+    private studentService: StudentService,
+    private router: Router,
+    private alert: AlertServiceService,
+  ){
     this.filteredStudents = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => this.search(text)),
@@ -87,8 +93,13 @@ export class StudentsListComponent implements OnInit {
     }
   }
 
-  onPageChange() {
-    console.log(this.currentPage)
+
+  showStudent(student: Student){
+
+    this.selectedStudent = student;
+    if (this.modal) {
+      this.modal.openModal(this.selectedStudent);
+    }
   }
 
 

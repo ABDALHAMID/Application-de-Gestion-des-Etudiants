@@ -16,7 +16,46 @@ table {
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: #F3c623 2px solid;
-  border-radius: 15px;
+}
+ngb-{
+
+}
+
+
+.trButton{
+  cursor: pointer;
+  position: relative;
+
+  .eye{
+    position: absolute;
+    right: 30px;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    svg{
+      font-size: 1.5rem;
+      color:black;
+      width: 30px;
+      height: 30px;
+    }
+    opacity: 0;
+    transition: .2s ease-out;
+    background-color: transparent;
+
+  }
+  transition: 1s ease-in;
+}
+.trButton:hover{
+  background-color: #e0e0e0 !important;
+  .eye{
+    right: 20px;
+    opacity: 100%;
+    transition: .2s ease-out;
+    background-color: transparent !important;
+
+  }
+  transition: 1s ease-out;
 }
 
 th,

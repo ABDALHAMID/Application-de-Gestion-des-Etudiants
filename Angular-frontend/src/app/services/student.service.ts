@@ -16,7 +16,6 @@ export class StudentService {
   constructor(private httpClient: HttpClient) { }
 
   getAllStudents(): Observable<Student[]>{
-    console.log("try to get")
     return this.httpClient.get<Student[]>(this.apiUrl)
   }
 

@@ -80,32 +80,11 @@
     <!-- Matricule -->
     <div class="mb-3">
       <label for="matricule" class="form-label fw-bold">Matricule</label>
-      <input
-        type="text"
-        id="matricule"
-        [(ngModel)]="student.matricule"
-        name="matricule"
-        required
-        minlength="6"
-        pattern="etu-\d{2,}$"
-        class="form-control"
-        #matricule="ngModel"
-        [ngClass]="{
-          'is-invalid':
-            matricule.invalid && (matricule.dirty || matricule.touched)
-        }"
-      />
-      <div
-        *ngIf="matricule.invalid && (matricule.dirty || matricule.touched)"
-        class="invalid-feedback"
-      >
+      <input type="text" id="matricule" [(ngModel)]="student.matricule" name="matricule" required minlength="6" pattern="etu-\d{2,}$" class="form-control" #matricule="ngModel" [ngClass]="{'is-invalid':matricule.invalid && (matricule.dirty || matricule.touched)}"/>
+      <div *ngIf="matricule.invalid && (matricule.dirty || matricule.touched)" class="invalid-feedback">
         <div *ngIf="matricule.errors?.['required']">Le matricule est requis.</div>
-        <div *ngIf="matricule.errors?.['minlength']">
-          Le matricule doit contenir au moins 6 caractères alphanumériques.
-        </div>
-        <div *ngIf="matricule.errors?.['pattern']">
-          le Matricule doit sous form de "etu-XXXX" (X et un nombre)
-        </div>
+        <div *ngIf="matricule.errors?.['minlength']">Le matricule doit contenir au moins 6 caractères alphanumériques.</div>
+        <div *ngIf="matricule.errors?.['pattern']">le Matricule doit sous form de "etu-XXXX" (X et un nombre)</div>
       </div>
     </div>
 
@@ -146,6 +125,7 @@
         id="date_naissance"
         [(ngModel)]="student.date_naissance"
         name="date_naissance"
+        format="yyyy-mm-dd"
         required
         class="form-control"
         #date_naissance="ngModel"

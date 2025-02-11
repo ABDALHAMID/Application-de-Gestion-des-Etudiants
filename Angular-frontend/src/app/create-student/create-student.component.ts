@@ -45,11 +45,12 @@ export class CreateStudentComponent implements OnInit{
   }
 
   onSubmit(form: NgForm) {
+    console.log(this.student)
     if (form.valid) {
-      this.studentService.updateStudent(this.student).subscribe({
+      this.studentService.createStudent(this.student).subscribe({
         next:()=>{
-          this.router.navigate(['/home']),
-          this.alert.changeMessage('etudent ajouter', 'success')
+          this.alert.changeMessage('etudent ajouter', 'success'),
+          this.router.navigate(['/home'])
         },
         error:(err)=>{
           console.log(err)
@@ -57,6 +58,8 @@ export class CreateStudentComponent implements OnInit{
         }
       })
 
+      }else{
+        this.alert.changeMessage('les donne sont pas valid', 'success')
       }
   }
 }

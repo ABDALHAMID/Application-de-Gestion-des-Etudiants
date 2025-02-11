@@ -1,0 +1,50 @@
+<ng-template #studentModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Informations de l'étudiant</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Fermer"
+      (click)="modal.dismiss('Clic sur la croix')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">Nom complet</th>
+          <td>{{ student?.nom }} {{ student?.prenom }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td>{{ student?.email }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Téléphone</th>
+          <td>{{ student?.tel }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Date de naissance</th>
+          <td>{{ student?.date_naissance || 'Non renseignée' }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Filière</th>
+          <td>{{ student?.filiere }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Matricule</th>
+          <td>{{ student?.matricule }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.close('Clic pour fermer')"
+    >
+      Fermer
+    </button>
+  </div>
+</ng-template>

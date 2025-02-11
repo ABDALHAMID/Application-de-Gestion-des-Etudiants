@@ -36,6 +36,7 @@ router.get('/:id', (req, res) => {
 
 // Create a new student
 router.post('/', (req, res) => {
+  console.log("inserting")
   console.log(req.body)
   const student = new Student(
     null,
@@ -49,11 +50,13 @@ router.post('/', (req, res) => {
   );
 
   db.query(`INSERT INTO ${studentTable} SET ?`, student, (err, result) => {
+    console.log(result)
     if (err) {
       console.error('Error inserting student:', err);
       res.status(500).json({ error: err });
     } else {
       res.status(201).json({ id: result.insertId, ...student });
+      console.log("laskdjf inserted")
     }
   });
 });
@@ -77,6 +80,7 @@ router.put('/:id', (req, res) => {
       res.status(500).json({ error: err });
     } else {
       res.status(200).json({ id, ...student });
+      console.log()
     }
   });
 });

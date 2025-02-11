@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
     this.alert.currentAlert.subscribe((data) => {
       this.alertMessage = data.message;
       this.alertStyle = data.style;
-
       setTimeout(() => {
         this.alertMessage = '';
         this.alertStyle = 'none';
@@ -29,7 +28,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  title= 'GESTION DES ETUDIANTS';
+  title= 'Gestion Des Etudiants';
 
   headerClass: boolean = true;
   @HostListener("window:scroll", [])
@@ -38,8 +37,14 @@ export class HeaderComponent implements OnInit {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (number < 10) {
       this.headerClass = true;
-      this.title= 'GESTION DES ETUDIANTS';
-    } else if (number > 10) {
+      this.title= 'Gestion Des Etudiants';
+    } else if (number < 20) {
+      this.headerClass = true;
+      this.title= 'Gestion Etudiants';
+    } else if (number < 30) {
+      this.headerClass = false;
+      this.title= 'GesDEtu';
+    } else if (number > 40) {
       this.headerClass = false;
       this.title= 'GDE';
     }
